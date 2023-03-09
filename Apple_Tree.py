@@ -23,17 +23,22 @@ class Worker():
 
     def treeToBasket(self):
         
-        if self.type == "basketworker" and len(appleTree1.appleTreeQueue) >= 0:
-            # do something
+        if self.type == "basketworker" and len(appleTree1.appleTreeQueue) > 0:
             for i in range(5):
                 basket1.basketstack.push(appleTree1.appleTreeQueue.dequeue())
-                print("\n" + basketWorker.name + " picked an apple")
+                print("\n" + self.name + " picked an apple")
 
             print("\n*******************************************************")
             print("\tBasket has " + str(len(basket1.basketstack)) + " apples")
+            print("\tApples left in tree: " + str(len(appleTree1.appleTreeQueue)))
             self.basketToWagon()
         elif len(appleTree1.appleTreeQueue) <= 0:
-            print("No apples left.")
+            print("\n*******************************************************")
+            print("\tApples left in tree: " + str(len(appleTree1.appleTreeQueue)))
+            print("\tBasket has " + str(len(basket1.basketstack)) + " apples")
+            print("\tWagon has " + str(len(wagon1.wagonstack)) + " apples")
+            print("\tStorage has " + str(len(storage1.storagequeue)) + " apples")
+            print("\n*******************************************************")
         else:
             print("Must be a basketworker to use this function")
             
@@ -43,13 +48,14 @@ class Worker():
                 wagon1.wagonstack.push(basket1.basketstack.pop())
 
             print("\n*******************************************************")
+            print("\tJohn empty basket into wagon\n")
             print("\tWagon has " + str(len(wagon1.wagonstack)) + " apples")
-            print("\n*******************************************************")
             print("\tBasket has " + str(len(basket1.basketstack)) + " apples")
+            print("\n*******************************************************")
 
             if len(wagon1.wagonstack) >= 40:
-                self.wagonToStorage()
-            self.basketToWagon()
+                wagonWorker.wagonToStorage()
+            self.treeToBasket()
         else:
             print("Must be a basketworker to use this function")
 
@@ -58,10 +64,10 @@ class Worker():
             for i in range(len(wagon1.wagonstack)):
                 storage1.storagequeue.enqueue(wagon1.wagonstack.pop())
 
-
-                print("\nAfter all that:\n")
-                print(basket1.basketstack.is_empty())
-                print(len(wagon1.wagonstack))
+            print("\tRachel empty wagon into storage\n")
+            print("\tWagon has " + str(len(wagon1.wagonstack)) + " apples")
+            print("\tstorage has " + str(len(storage1.storagequeue)) + " apples")
+            print("\n*******************************************************")
         else:
             print("Must be a wagonworker to use this function")
      
@@ -90,9 +96,8 @@ basketWorker = Worker("John", "M", "basketworker")
 wagonWorker = Worker("Emily", "F", "wagonworker")
 
 #work functions
-print("\nThere are " + str(appleTree1.applesLeft()) + " apple(s) left in the tree")
+print("\nThere are " + str(appleTree1.applesLeft()) + " apples left in the tree")
 
 basketWorker.treeToBasket()
-appleTree1.applesLeft()
 
 #(apple tree, basket, worker, wagon, storage).
