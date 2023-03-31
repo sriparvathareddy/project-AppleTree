@@ -90,7 +90,7 @@ class Storage():
         self.storagequeue = ArrayQueue()
 
 # initiates the important classes
-appleTree1 = AppleTree(100)
+appleTree1 = AppleTree(120)
 storage1 = Storage()
 wagon1 = Wagon()
 basket1 = Basket()
@@ -105,7 +105,7 @@ print("\nThere are " + str(appleTree1.applesLeft()) + " apples left in the tree"
 for i in range(1, 3600):
     if i % 10 == 0:
         basketWorker.treeToBasket()
-        print("time: " + str(i))
+        print("time: " + str(i / 10) + " seconds")
     if i % 50 == 0:
         basketWorker.basketToWagon()
     if i % 400 == 0:
